@@ -11,7 +11,7 @@ ISRELEASED = False
 # build/releases (this is filled/updated in `write_version_py`)
 FULLVERSION = VERSION
 
-DESCRIPTION = 'Base Widget for Orange Canvas'
+DESCRIPTION = 'Fork of Base Widget for Orange Canvas with i18n support'
 README_FILE = os.path.join(os.path.dirname(__file__), 'README.md')
 LONG_DESCRIPTION = """
 This project implements the base OWBaseWidget class and utilities for use in
@@ -25,9 +25,9 @@ Provides:
     * basic configuration for a workflow based application
 
 """
-AUTHOR = 'Bioinformatics Laboratory, FRI UL'
-AUTHOR_EMAIL = 'info@biolab.si'
-URL = 'http://orange.biolab.si/'
+AUTHOR = 'SZZYIIT'
+AUTHOR_EMAIL = 'gengy@zhaoyang.org.cn'
+URL = 'http://zhaoyang.org.cn/'
 LICENSE = 'GPLv3+'
 
 KEYWORDS = (

@@ -30,3 +30,6 @@ Thumbs.db
 htmlcov/*
 .coverage
 .coverage.*
+
+wedget_env/
+.vscode/
