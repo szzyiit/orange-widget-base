@@ -108,18 +108,20 @@ if not release:
 """
     global FULLVERSION
     FULLVERSION = VERSION
-    if os.path.exists('.git'):
-        GIT_REVISION = git_version()
-    elif os.path.exists(filename):
-        # must be a source distribution, use existing version file
-        import imp
-        version = imp.load_source("orangewidget.version", filename)
-        GIT_REVISION = version.git_revision
-    else:
-        GIT_REVISION = "Unknown"
+    GIT_REVISION = 1
+    # if os.path.exists('.git'):
+    #     # GIT_REVISION = git_version()
+    #     GIT_REVISION = 1
+    # elif os.path.exists(filename):
+    #     # must be a source distribution, use existing version file
+    #     import imp
+    #     version = imp.load_source("orangewidget.version", filename)
+    #     GIT_REVISION = version.git_revision
+    # else:
+    #     GIT_REVISION = "Unknown"
 
-    if not ISRELEASED:
-        FULLVERSION += '.dev0+' + GIT_REVISION[:7]
+    # if not ISRELEASED:
+    #     FULLVERSION += '.dev0+' + GIT_REVISION[:7]
 
     a = open(filename, 'w')
     try:
