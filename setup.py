@@ -70,31 +70,31 @@ DATA_FILES = []
 
 
 # Return the git revision as a string
-def git_version():
-    """Return the git revision as a string.
+# def git_version():
+#     """Return the git revision as a string.
 
-    Copied from numpy setup.py
-    """
-    def _minimal_ext_cmd(cmd):
-        # construct minimal environment
-        env = {}
-        for k in ['SYSTEMROOT', 'PATH']:
-            v = os.environ.get(k)
-            if v is not None:
-                env[k] = v
-        # LANGUAGE is used on win32
-        env['LANGUAGE'] = 'C'
-        env['LANG'] = 'C'
-        env['LC_ALL'] = 'C'
-        out = subprocess.run(cmd, check=True, stdout=subprocess.PIPE, env=env)
-        return out.stdout
+#     Copied from numpy setup.py
+#     """
+#     def _minimal_ext_cmd(cmd):
+#         # construct minimal environment
+#         env = {}
+#         for k in ['SYSTEMROOT', 'PATH']:
+#             v = os.environ.get(k)
+#             if v is not None:
+#                 env[k] = v
+#         # LANGUAGE is used on win32
+#         env['LANGUAGE'] = 'C'
+#         env['LANG'] = 'C'
+#         env['LC_ALL'] = 'C'
+#         out = subprocess.run(cmd, check=True, stdout=subprocess.PIPE, env=env)
+#         return out.stdout
 
-    try:
-        out = _minimal_ext_cmd(['git', 'rev-parse', 'HEAD'])
-        GIT_REVISION = out.strip().decode('ascii')
-    except OSError:
-        GIT_REVISION = "Unknown"
-    return GIT_REVISION
+#     try:
+#         out = _minimal_ext_cmd(['git', 'rev-parse', 'HEAD'])
+#         GIT_REVISION = out.strip().decode('ascii')
+#     except OSError:
+#         GIT_REVISION = "Unknown"
+#     return GIT_REVISION
 
 
 def write_version_py(filename='orangewidget/version.py'):
@@ -113,18 +113,20 @@ if not release:
 """
     global FULLVERSION
     FULLVERSION = VERSION
-    if os.path.exists('.git'):
-        GIT_REVISION = git_version()
-    elif os.path.exists(filename):
-        # must be a source distribution, use existing version file
-        import imp
-        version = imp.load_source("orangewidget.version", filename)
-        GIT_REVISION = version.git_revision
-    else:
-        GIT_REVISION = "Unknown"
+    GIT_REVISION = 1
+    # if os.path.exists('.git'):
+    #     # GIT_REVISION = git_version()
+    #     GIT_REVISION = 1
+    # elif os.path.exists(filename):
+    #     # must be a source distribution, use existing version file
+    #     import imp
+    #     version = imp.load_source("orangewidget.version", filename)
+    #     GIT_REVISION = version.git_revision
+    # else:
+    #     GIT_REVISION = "Unknown"
 
-    if not ISRELEASED:
-        FULLVERSION += '.dev0+' + GIT_REVISION[:7]
+    # if not ISRELEASED:
+    #     FULLVERSION += '.dev0+' + GIT_REVISION[:7]
 
     a = open(filename, 'w')
     try:
