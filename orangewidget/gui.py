@@ -1764,7 +1764,7 @@ def auto_send(widget, master, value="auto_send", **kwargs):
     :type value:  str
     :return: the box
     """
-    return auto_commit(widget, master, value, "Send Selection", "Send Automatically", **kwargs)
+    return auto_commit(widget, master, value, "发送选中", "自动发送", **kwargs)
 
 
 def auto_apply(widget, master, value="auto_apply", **kwargs):
@@ -1780,7 +1780,7 @@ def auto_apply(widget, master, value="auto_apply", **kwargs):
     :type value:  str
     :return: the box
     """
-    return auto_commit(widget, master, value, "Apply", "Apply Automatically", **kwargs)
+    return auto_commit(widget, master, value, "应用", "自动应用", **kwargs)
 
 
 def connectControl(master, value, f, signal,

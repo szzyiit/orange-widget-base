@@ -4,7 +4,7 @@ import os
 import subprocess
 from setuptools import setup, find_packages, Command
 
-NAME = 'orange-widget-base'
+NAME = 'orange-widget-base-ml'
 VERSION = '4.11.0'
 ISRELEASED = False
 # full version identifier including a git revision identifier for development
@@ -16,14 +16,11 @@ README_FILE = os.path.join(os.path.dirname(__file__), 'README.md')
 LONG_DESCRIPTION = """
 This project implements the base OWBaseWidget class and utilities for use in
 Orange Canvas workflows.
-
 Provides:
-
     * `OWBaseWidget` class
     * `gui` module for building GUI
     * `WidgetsScheme` the workflow execution model/bridge
     * basic configuration for a workflow based application
-
 """
 AUTHOR = 'SZZYIIT'
 AUTHOR_EMAIL = 'gengy@zhaoyang.org.cn'
@@ -56,8 +53,12 @@ INSTALL_REQUIRES = [
     "matplotlib",
     "pyqtgraph",
     "AnyQt",
+<<<<<<< HEAD
     "orange-canvas-core>=0.1.8a,<0.2a",
     'appnope; sys_platform=="darwin"'
+=======
+    "orange-canvas-core-ml>=0.1.8a,<0.2a",
+>>>>>>> chinese
 ]
 
 EXTRAS_REQUIRE = {
@@ -70,31 +71,30 @@ DATA_FILES = []
 
 
 # Return the git revision as a string
-# def git_version():
-#     """Return the git revision as a string.
+def git_version():
+    """Return the git revision as a string.
+    Copied from numpy setup.py
+    """
+    def _minimal_ext_cmd(cmd):
+        # construct minimal environment
+        env = {}
+        for k in ['SYSTEMROOT', 'PATH']:
+            v = os.environ.get(k)
+            if v is not None:
+                env[k] = v
+        # LANGUAGE is used on win32
+        env['LANGUAGE'] = 'C'
+        env['LANG'] = 'C'
+        env['LC_ALL'] = 'C'
+        out = subprocess.run(cmd, check=True, stdout=subprocess.PIPE)
+        return out.stdout
 
-#     Copied from numpy setup.py
-#     """
-#     def _minimal_ext_cmd(cmd):
-#         # construct minimal environment
-#         env = {}
-#         for k in ['SYSTEMROOT', 'PATH']:
-#             v = os.environ.get(k)
-#             if v is not None:
-#                 env[k] = v
-#         # LANGUAGE is used on win32
-#         env['LANGUAGE'] = 'C'
-#         env['LANG'] = 'C'
-#         env['LC_ALL'] = 'C'
-#         out = subprocess.run(cmd, check=True, stdout=subprocess.PIPE, env=env)
-#         return out.stdout
-
-#     try:
-#         out = _minimal_ext_cmd(['git', 'rev-parse', 'HEAD'])
-#         GIT_REVISION = out.strip().decode('ascii')
-#     except OSError:
-#         GIT_REVISION = "Unknown"
-#     return GIT_REVISION
+    try:
+        out = _minimal_ext_cmd(['git', 'rev-parse', 'HEAD'])
+        GIT_REVISION = out.strip().decode('ascii')
+    except OSError:
+        GIT_REVISION = "Unknown"
+    return GIT_REVISION
 
 
 def write_version_py(filename='orangewidget/version.py'):
@@ -106,27 +106,24 @@ version = '%(version)s'
 full_version = '%(full_version)s'
 git_revision = '%(git_revision)s'
 release = %(isrelease)s
-
 if not release:
     version = full_version
     short_version += ".dev"
 """
     global FULLVERSION
     FULLVERSION = VERSION
-    GIT_REVISION = 1
-    # if os.path.exists('.git'):
-    #     # GIT_REVISION = git_version()
-    #     GIT_REVISION = 1
-    # elif os.path.exists(filename):
-    #     # must be a source distribution, use existing version file
-    #     import imp
-    #     version = imp.load_source("orangewidget.version", filename)
-    #     GIT_REVISION = version.git_revision
-    # else:
-    #     GIT_REVISION = "Unknown"
+    if os.path.exists('.git'):
+        GIT_REVISION = git_version()
+    elif os.path.exists(filename):
+        # must be a source distribution, use existing version file
+        import imp
+        version = imp.load_source("orangewidget.version", filename)
+        GIT_REVISION = version.git_revision
+    else:
+        GIT_REVISION = "Unknown"
 
-    # if not ISRELEASED:
-    #     FULLVERSION += '.dev0+' + GIT_REVISION[:7]
+    if not ISRELEASED:
+        FULLVERSION += '.dev0+' + GIT_REVISION[:7]
 
     a = open(filename, 'w')
     try:
