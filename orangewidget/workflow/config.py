@@ -66,7 +66,7 @@ class Config(config.Default):
         be updated. The package that defines the application's `main()` entry
         point must always be in this list.
         """
-        return ["orange-widget-base"]
+        return ["orange-widget-base-ml"]
 
     @staticmethod
     def examples_entry_points():
